@@ -3,93 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Number Tracker Pro</title>
+    <title>AH Mobile & Nadra E-Sahulat Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: #0f172a; color: white; font-family: 'Poppins', sans-serif; }
+        .tool-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            border-radius: 24px;
+        }
+        .tool-card:hover {
+            transform: translateY(-8px);
+            background: rgba(0, 168, 89, 0.1);
+            border-color: #00a859;
+        }
+        .quran-gradient { background: linear-gradient(135deg, #065f46 0%, #059669 100%); }
+        .prayer-gradient { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); }
+    </style>
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="p-4 md:p-10">
 
-    <div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-xl shadow-lg border border-gray-200">
-        <h2 class="text-2xl font-bold text-center text-blue-600 mb-6">Number Detail Finder</h2>
+    <header class="text-center mb-12">
+        <h1 class="text-3xl md:text-5xl font-bold text-white mb-2">AH MOBILE & NADRA</h1>
+        <h2 class="text-xl md:text-2xl font-light text-green-400 uppercase tracking-widest">E-Sahulat Centre</h2>
+        <div class="w-24 h-1 bg-green-500 mx-auto mt-4 rounded-full"></div>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
         
-        <div class="space-y-4">
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Mobile Number</label>
-                <input type="text" id="mobileNumber" placeholder="e.g. 3001234567" 
-                    class="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
-                <p class="text-xs text-gray-500 mt-1">*Bina zero (0) ke number likhein.</p>
+        <div class="tool-card quran-gradient p-6 shadow-xl col-span-1 md:col-span-2 lg:col-span-1">
+            <div class="flex items-center gap-4 mb-4">
+                <i class="fas fa-quran text-4xl text-yellow-300"></i>
+                <h3 class="text-xl font-bold text-white">Ayat of the Moment</h3>
             </div>
-
-            <button onclick="fetchData()" id="searchBtn"
-                class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition">
-                Search Details
-            </button>
+            <p class="text-lg mb-2 font-serif text-right text-white" id="arbi-ayat">Loading...</p>
+            <p class="text-sm opacity-90 italic text-white" id="translation-ayat"></p>
+            <button onclick="fetchAyat()" class="mt-4 text-[10px] bg-white/20 px-3 py-1 rounded-full text-white">Next Ayat</button>
         </div>
 
-        <div id="loader" class="hidden mt-4 text-center text-blue-600 font-semibold italic">
-            Searching Database...
+        <div class="tool-card prayer-gradient p-6 shadow-xl">
+            <div class="flex items-center gap-4 mb-4">
+                <i class="fas fa-mosque text-3xl text-blue-200"></i>
+                <h3 class="text-xl font-bold text-white">Prayer Times</h3>
+            </div>
+            <div id="prayer-times" class="grid grid-cols-2 gap-2 text-sm text-white">
+                <div>Fajr: <span id="fajr">--:--</span></div>
+                <div>Dhuhr: <span id="dhuhr">--:--</span></div>
+                <div>Asr: <span id="asr">--:--</span></div>
+                <div>Maghrib: <span id="maghrib">--:--</span></div>
+                <div>Isha: <span id="isha">--:--</span></div>
+            </div>
+            <p class="text-[10px] mt-3 opacity-70">Location: Pakistan</p>
         </div>
 
-        <div id="resultBox" class="hidden mt-6 p-4 bg-gray-50 rounded-lg border border-gray-300 animate-pulse-once">
-            <h3 class="font-bold text-gray-800 border-b pb-2 mb-3">Owner Information:</h3>
-            <div id="dataContent" class="text-sm space-y-2">
-                </div>
+        <div class="tool-card p-6 bg-slate-800">
+            <i class="fas fa-book-open text-3xl text-blue-400 mb-4"></i>
+            <h3 class="text-xl font-bold mb-2">Full Quran PDF</h3>
+            <p class="text-gray-400 text-sm mb-4">Download Tajweed Color-Coded Quran.</p>
+            <a href="https://quranwbw.com/bundle/Quran-Color-Coded-Tajweed-English.pdf" target="_blank" class="block text-center bg-blue-600 py-2 rounded-xl font-bold text-sm">Download Now</a>
         </div>
 
-        <div id="errorBox" class="hidden mt-4 p-3 bg-red-100 text-red-700 text-sm rounded-lg text-center font-medium">
-            Data nahi mil saka ya API ne block kar dia hai.
+        <div class="tool-card p-6">
+            <i class="fas fa-search-location text-3xl text-green-500 mb-4"></i>
+            <h3 class="text-xl font-bold mb-2">Number Detail</h3>
+            <p class="text-gray-400 text-sm mb-4">Find SIM owner name & CNIC details.</p>
+            <a href="#" class="text-green-400 font-bold text-sm">Open Finder →</a>
+        </div>
+
+        <div class="tool-card p-6">
+            <i class="fas fa-file-invoice-dollar text-3xl text-yellow-500 mb-4"></i>
+            <h3 class="text-xl font-bold mb-2">Bill Estimator</h3>
+            <p class="text-gray-400 text-sm mb-4">Calculate units and expected bill.</p>
+            <a href="#" class="text-yellow-400 font-bold text-sm">Calculate →</a>
+        </div>
+
+        <div class="tool-card p-6 border-dashed border-2 flex flex-col items-center justify-center">
+            <i class="fab fa-whatsapp text-4xl text-green-500 mb-2"></i>
+            <span class="text-gray-400 text-sm">Need Help?</span>
+            <a href="https://wa.me/923150075526" class="text-white font-bold underline">Contact Us</a>
         </div>
     </div>
 
     <script>
-        async function fetchData() {
-            const number = document.getElementById('mobileNumber').value;
-            const resultBox = document.getElementById('resultBox');
-            const dataContent = document.getElementById('dataContent');
-            const errorBox = document.getElementById('errorBox');
-            const loader = document.getElementById('loader');
-
-            if (!number || number.length < 10) {
-                alert("Please enter a valid 10-digit number.");
-                return;
-            }
-
-            // Reset states
-            resultBox.classList.add('hidden');
-            errorBox.classList.add('hidden');
-            loader.classList.remove('hidden');
-
-            const apiUrl = `https://app-api.callerid.pk/api/api_sims/api.php?number=${number}`;
-
+        // Quran API
+        async function fetchAyat() {
+            const random = Math.floor(Math.random() * 6236) + 1;
             try {
-                // Ham yahan proxy use kar sakte hain agar browser block kare (Optional)
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-
-                loader.classList.add('hidden');
-
-                if (data && data.status === "success") {
-                    resultBox.classList.remove('hidden');
-                    
-                    // API ke response fields ke mutabiq data set karein
-                    // Note: API fields 'name', 'cnic', 'address' ho saktay hain
-                    dataContent.innerHTML = `
-                        <p><strong>Name:</strong> ${data.name || 'Not Found'}</p>
-                        <p><strong>CNIC:</strong> ${data.cnic || 'Not Found'}</p>
-                        <p><strong>Address:</strong> ${data.address || 'Not Found'}</p>
-                        <p><strong>Network:</strong> ${data.network || 'Not Found'}</p>
-                    `;
-                } else {
-                    errorBox.classList.remove('hidden');
-                }
-            } catch (error) {
-                loader.classList.add('hidden');
-                console.error("Error fetching data:", error);
-                // Agar block ho jaye to direct link ka option dein
-                errorBox.innerHTML = `API Request blocked. <br><a href="${apiUrl}" target="_blank" class="underline font-bold text-red-800 text-xs">Yahan click kar ke data dekhein (External Link)</a>`;
-                errorBox.classList.remove('hidden');
-            }
+                const res = await fetch(`https://api.alquran.cloud/v1/ayah/${random}/en.pickthall`);
+                const data = await res.json();
+                document.getElementById('arbi-ayat').innerText = data.data.text; // Note: In real setup, fetch AR separately
+                document.getElementById('translation-ayat').innerText = `"${data.data.text}" (${data.data.surah.englishName})`;
+            } catch (e) { console.log(e); }
         }
-    </script>
 
+        // Prayer Times API
+        async function fetchPrayers() {
+            try {
+                const res = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Lahore&country=Pakistan&method=1');
+                const data = await res.json();
+                const t = data.data.timings;
+                document.getElementById('fajr').innerText = t.Fajr;
+                document.getElementById('dhuhr').innerText = t.Dhuhr;
+                document.getElementById('asr').innerText = t.Asr;
+                document.getElementById('maghrib').innerText = t.Maghrib;
+                document.getElementById('isha').innerText = t.Isha;
+            } catch (e) { console.log(e); }
+        }
+
+        window.onload = () => { fetchAyat(); fetchPrayers(); };
+    </script>
 </body>
 </html>
