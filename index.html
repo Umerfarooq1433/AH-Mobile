@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AH Mobile & Nadra E-Sahulat Centre</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            transition: 0.3s; 
+            overflow-x: hidden;
+            background: #f8fafc;
+            color: #0f172a;
+        }
+        
+        .dark { background: #020617; color: #f1f5f9; }
+        
+        /* Navigation */
+        .glass-nav { 
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(15px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .dark .glass-nav { background: rgba(2, 6, 23, 0.85); border-bottom-color: #1e293b; }
+        
+        .nav-container { 
+            max-width: 1280px; 
+            margin: 0 auto; 
+            padding: 0 1rem; 
+            height: 80px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+        
+        .logo-area { display: flex; align-items: center; gap: 0.75rem; }
+        .logo-box { 
+            width: 48px; 
+            height: 48px; 
+            background: #2563eb; 
+            border-radius: 16px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+        }
+        .logo-box i { color: white; font-size: 20px; }
+        
+        .logo-text h1 { 
+            font-size: 20px; 
+            font-weight: 800; 
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+        .logo-text span { 
+            font-size: 10px; 
+            font-weight: 700; 
+            color: #2563eb;
+            letter-spacing: 0.1em;
+        }
+        
+        .dark-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: #f1f5f9;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+        .dark .dark-toggle { background: #1e293b; }
+        .dark-toggle:active { transform: scale(0.9); }
+        .dark .moon-icon { display: none; }
+        .sun-icon { display: none; color: #facc15; }
+        .dark .sun-icon { display: block; }
+        
+        /* Tabs */
+        .tabs-container { 
+            max-width: 1280px; 
+            margin: 0 auto; 
+            padding: 0 1rem; 
+            display: flex; 
+            gap: 2rem;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0.75rem 0;
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            color: #94a3b8;
+            border-bottom: 4px solid transparent;
+            transition: all 0.3s;
+        }
+        .tab-btn.active { 
+            color: #2563eb; 
+            border-bottom-color: #2563eb;
+        }
+        .dark .tab-btn { color: #64748b; }
+        .dark .tab-btn.active { color: #2563eb; }
+        
+        /* Content Area */
+        .content-area { 
+            max-width: 1280px; 
+            margin: 0 auto; 
+            padding: 2rem 1rem;
+        }
+        .page { display: none; }
+        .page.active { display: block; }
+        
+        .page-header { margin-bottom: 2.5rem; }
+        .page-header h2 { 
+            font-size: 30px; 
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+        }
+        .page-header p { 
+            color: #64748b; 
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        /* Tools Grid */
+        .tools-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        @media (min-width: 768px) { .tools-grid { grid-template-columns: repeat(4, 1fr); } }
+        @media (min-width: 1024px) { .tools-grid { grid-template-columns: repeat(6, 1fr); } }
+        
+        .tool-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 35px;
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .dark .tool-card { 
+            background: #0f172a; 
+            border-color: rgba(255,255,255,0.05);
+        }
+        .tool-card:hover { 
+            transform: translateY(-3px); 
+            border-color: #2563eb;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+        
+        .tool-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 24px;
+            color: white;
+        }
+        .tool-card h4 { 
+            font-size: 10px; 
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.025em;
+        }
+        .dark .tool-card h4 { color: white; }
+        
+        /* Services Grid */
+        .services-grid { 
+            display: grid; 
+            gap: 1.5rem;
+            grid-template-columns: 1fr;
+        }
+        @media (min-width: 768px) { .services-grid { grid-template-columns: repeat(3, 1fr); } }
+        
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 35px;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .dark .service-card { 
+            background: #0f172a; 
+            border-color: rgba(255,255,255,0.05);
+        }
+        
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-card h3 { 
+            font-size: 20px; 
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        
+        .service-card ul { list-style: none; }
+        .service-card li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 14px;
+            font-weight: 600;
+            color: #64748b;
+        }
+        .dark .service-card li { color: #94a3b8; }
+        
+        /* Call to Action */
+        .cta-section {
+            margin-top: 3rem;
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            padding: 3rem;
+            border-radius: 50px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+        }
+        .cta-section h3 { 
+            font-size: 30px; 
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+        .cta-section p {
+            color: #bfdbfe;
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 500;
+        }
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .cta-btn {
+            padding: 1rem 2.5rem;
+            border-radius: 16px;
+            font-weight: 900;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .cta-btn-primary {
+            background: white;
+            color: #2563eb;
+        }
+        .cta-btn-secondary {
+            background: #1e40af;
+            color: white;
+            border: 1px solid rgba(191, 219, 254, 0.3);
+        }
+        .cta-btn:hover { 
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3);
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 200;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .modal.show { display: flex; }
+        
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 45px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .dark .modal-content { background: #0f172a; }
+        
+        .modal-header {
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .dark .modal-header { border-bottom-color: #1e293b; }
+        
+        .modal-header h3 { 
+            font-size: 20px; 
+            font-weight: 900;
+            letter-spacing: -0.025em;
+        }
+        
+        .modal-close {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f1f5f9;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .dark .modal-close { background: #1e293b; }
+        .modal-close:hover { color: #ef4444; }
+        
+        .modal-body {
+            padding: 2.5rem;
+            text-align: center;
+            overflow-y: auto;
+        }
+        
+        .modal-tool-icon {
+            width: 96px;
+            height: 96px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 40px;
+            color: white;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);
+        }
+        
+        .modal-body h4 {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+        
+        .modal-body p {
+            color: #64748b;
+            margin-bottom: 2.5rem;
+            font-weight: 500;
+        }
+        .dark .modal-body p { color: #94a3b8; }
+        
+        .modal-actions { display: flex; flex-direction: column; gap: 0.75rem; }
+        
+        .modal-btn {
+            width: 100%;
+            padding: 1.25rem;
+            border-radius: 16px;
+            font-weight: 900;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .modal-btn-primary {
+            background: #2563eb;
+            color: white;
+            box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.2);
+        }
+        .modal-btn-primary:hover { transform: scale(1.02); }
+        .modal-btn-secondary {
+            background: none;
+            color: #94a3b8;
+            font-weight: 700;
+        }
+        
+        /* Color Classes */
+        .bg-emerald-500 { background: #10b981; }
+        .bg-rose-500 { background: #f43f5e; }
+        .bg-red-600 { background: #dc2626; }
+        .bg-red-500 { background: #ef4444; }
+        .bg-green-500 { background: #22c55e; }
+        .bg-red-400 { background: #f87171; }
+        .bg-yellow-500 { background: #eab308; }
+        .bg-orange-500 { background: #f97316; }
+        .bg-slate-900 { background: #0f172a; }
+        .bg-blue-600 { background: #2563eb; }
+        .bg-indigo-500 { background: #6366f1; }
+        .bg-yellow-400 { background: #facc15; }
+        .bg-blue-500 { background: #3b82f6; }
+        .bg-cyan-500 { background: #06b6d4; }
+        .bg-slate-800 { background: #1e293b; }
+        .bg-orange-600 { background: #ea580c; }
+        .bg-purple-500 { background: #a855f7; }
+        .bg-blue-400 { background: #60a5fa; }
+        .bg-slate-600 { background: #475569; }
+        .bg-pink-500 { background: #ec4899; }
+        .bg-blue-300 { background: #93c5fd; }
+        .bg-blue-700 { background: #1d4ed8; }
+        .bg-teal-500 { background: #14b8a6; }
+        .bg-sky-500 { background: #0ea5e9; }
+        .bg-violet-500 { background: #8b5cf6; }
+        .bg-emerald-600 { background: #059669; }
+        .bg-black { background: #000; }
+        .bg-indigo-600 { background: #4f46e5; }
+        .bg-rose-600 { background: #e11d48; }
+        .bg-slate-700 { background: #334155; }
+        .bg-orange-400 { background: #fb923c; }
+        .bg-green-600 { background: #16a34a; }
+        .bg-blue-800 { background: #1e40af; }
+        .bg-cyan-600 { background: #0891b2; }
+        .bg-amber-500 { background: #f59e0b; }
+        .bg-purple-600 { background: #9333ea; }
+        .bg-amber-600 { background: #d97706; }
+        .bg-blue-900 { background: #1e3a8a; }
+        
+        .text-emerald-500 { color: #10b981; }
+        .text-blue-500 { color: #3b82f6; }
+        .text-amber-500 { color: #f59e0b; }
+        
+        .bg-emerald-100 { background: #d1fae5; }
+        .dark .bg-emerald-100 { background: rgba(16, 185, 129, 0.2); }
+        .text-emerald-600 { color: #059669; }
+        
+        .bg-blue-100 { background: #dbeafe; }
+        .dark .bg-blue-100 { background: rgba(59, 130, 246, 0.2); }
+        .text-blue-600 { color: #2563eb; }
+        
+        .bg-amber-100 { background: #fef3c7; }
+        .dark .bg-amber-100 { background: rgba(245, 158, 11, 0.2); }
+        .text-amber-600 { color: #d97706; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo-text h1 { font-size: 16px; }
+            .page-header h2 { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="glass-nav">
+        <div class="nav-container">
+            <div class="logo-area">
+                <div class="logo-box">
+                    <i class="fas fa-store"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>AH Mobile & Nadra E-Sahulat Centre</h1>
+                    <span>Your First Choice</span>
+                </div>
+            </div>
+            <button class="dark-toggle" onclick="toggleDark()">
+                <i class="fas fa-moon moon-icon"></i>
+                <i class="fas fa-sun sun-icon"></i>
+            </button>
+        </div>
+        <div class="tabs-container">
+            <button class="tab-btn active" onclick="switchTab('tools')">AH TOOLKIT</button>
+            <button class="tab-btn" onclick="switchTab('services')">PHYSICAL SHOP SERVICES</button>
+        </div>
+    </nav>
+
+    <!-- Content Area -->
+    <div class="content-area">
+        <!-- Tools Page -->
+        <div id="page-tools" class="page active">
+            <div class="page-header">
+                <h2>Digital Toolkit</h2>
+                <p>Powering Your Device With Premium Tools.</p>
+            </div>
+            <div class="tools-grid" id="toolsGrid"></div>
+        </div>
+
+        <!-- Services Page -->
+        <div id="page-services" class="page">
+            <div class="page-header">
+                <h2>AH Mobile Services</h2>
+                <p>Reliable Solutions For Your Identity And Communication Needs.</p>
+            </div>
+            <div class="services-grid">
+                <!-- Nadra -->
+                <div class="service-card">
+                    <div class="service-icon bg-emerald-100 text-emerald-600">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <h3>NADRA E-SAHULAT</h3>
+                    <ul>
+                        <li><i class="fas fa-check text-emerald-500"></i> 🪪 CNIC Verification</li>
+                        <li><i class="fas fa-check text-emerald-500"></i> CNIC Lost/Reprint Service</li>
+                        <li><i class="fas fa-check text-emerald-500"></i> CNIC Expired/Renew Service</li>
+                        <li><i class="fas fa-check text-emerald-500"></i> CNIC Marital Status Update Service</li>
+                        <li><i class="fas fa-check text-emerald-500"></i> CNIC Cancellation Service</li>
+                        <li><i class="fas fa-check text-emerald-500"></i> FRC / Family Tree</li>
+                        <li><i class="fas fa-check text-emerald-500"></i> Birth/Death Certificates</li>
+                        <li><i class="fas fa-check text-emerald-500"></i> Marriage Certificates</li>
+                        <li><i class="fas fa-check text-emerald-500"></i> 🫆 All Type Of Biometric Available</li>
+                        <li><i class="fas fa-check text-emerald-500"></i> Vehicle Verification</li>
+                        <li><i class="fas fa-check text-emerald-500"></i> 🫆 Vehicle Biometric</li>
+                        <li><i class="fas fa-check text-emerald-500"></i> Vehicle Transfer</li>
+                        <li><i class="fas fa-check text-emerald-500"></i> Vehicle Token Tax</li>
+                        <li><i class="fas fa-check text-amber-500"></i> 📷 E-Challan Check & Pay</li>
+                        <li><i class="fas fa-check text-emerald-500"></i> Punjab Zameen Farad (Personal Record)</li>
+                        <li><i class="fas fa-check text-amber-500"></i> 🪪 ARMS License Renew</li>
+                    </ul>
+                </div>
+
+                <!-- Mobile Solutions -->
+                <div class="service-card">
+                    <div class="service-icon bg-blue-100 text-blue-600">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>MOBILE SOLUTIONS</h3>
+                    <ul>
+                        <li><i class="fas fa-check text-blue-500"></i> FRP Bypass</li>
+                        <li><i class="fas fa-check text-blue-500"></i> Mobile Software</li>
+                        <li><i class="fas fa-check text-blue-500"></i> Handfree</li>
+                        <li><i class="fas fa-check text-blue-500"></i> Branded Charger</li>
+                        <li><i class="fas fa-check text-blue-500"></i> Airbuds</li>
+                        <li><i class="fas fa-check text-blue-500"></i> Electronic Gadgets</li>
+                        <li><i class="fas fa-check text-blue-500"></i> New Sim Activation</li>
+                        <li><i class="fas fa-check text-blue-500"></i> Duplicate Sim Activation</li>
+                        <li><i class="fas fa-check text-blue-500"></i> PTA Mobile Registration</li>
+                    </ul>
+                </div>
+
+                <!-- Billing & Cash -->
+                <div class="service-card">
+                    <div class="service-icon bg-amber-100 text-amber-600">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h3>BILLING & CASH</h3>
+                    <ul>
+                        <li><i class="fas fa-check text-amber-500"></i> Electricity Bill Payments</li>
+                        <li><i class="fas fa-check text-amber-500"></i> Sui Gas Bill Payments</li>
+                        <li><i class="fas fa-check text-amber-500"></i> PTCL Bill Payments</li>
+                        <li><i class="fas fa-check text-amber-500"></i> Water Bill Payments</li
