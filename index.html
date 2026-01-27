@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AH Mobile & Nadra E-Sahulat Centre</title>
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -19,139 +17,268 @@
             }
         }
     </script>
-
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; transition: 0.3s; overflow-x: hidden; }
-        .active-tab { border-bottom: 4px solid #2563eb !important; color: #2563eb !important; opacity: 1 !important; }
-        .glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
-        .dark .glass-nav { background: rgba(2, 6, 23, 0.9); }
-        .tool-card { cursor: pointer; transition: all 0.2s ease; }
-        .tool-card:active { transform: scale(0.95); }
-        .hidden { display: none !important; }
+        .service-card { transition: all 0.3s ease; border: 1px solid rgba(0,0,0,0.05); }
+        .dark .service-card { border-color: rgba(255,255,255,0.05); }
+        .service-card:hover { transform: scale(1.03); background: #2563eb; color: white !important; }
+        .active-tab { border-bottom: 4px solid #2563eb; color: #2563eb; }
+        .glass-nav { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(15px); }
+        .dark .glass-nav { background: rgba(2, 6, 23, 0.85); }
+        .tool-card { transition: all 0.2s ease-in-out; }
+        .tool-card:hover { transform: translateY(-3px); border-color: #2563eb; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); align-items: center; justify-content: center; }
+        .modal-content { background-color: white; padding: 2rem; border-radius: 30px; max-width: 500px; width: 90%; text-align: center; animation: slideIn 0.3s ease; }
+        .dark .modal-content { background-color: #0f172a; }
+        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-darkBg text-slate-900 dark:text-slate-100">
 
+    <!-- Header & Branding -->
     <nav class="sticky top-0 z-[100] glass-nav border-b dark:border-slate-800">
         <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-brand rounded-xl flex items-center justify-center shadow-lg">
-                    <i class="fas fa-store text-white"></i>
+                <div class="w-12 h-12 bg-brand rounded-2xl flex items-center justify-center shadow-lg shadow-brand/30">
+                    <i class="fas fa-store text-white text-xl"></i>
                 </div>
-                <h1 class="text-sm md:text-lg font-black uppercase tracking-tighter">AH Mobile & Nadra</h1>
+                <div>
+                    <h1 class="text-lg md:text-xl font-extrabold tracking-tight leading-none uppercase">AH Mobile & Nadra E-Sahulat Centre</h1>
+                    <span class="text-[10px] font-bold text-brand tracking-[0.1em]">Your First Choice</span>
+                </div>
             </div>
-            <button onclick="toggleDarkMode()" class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center">
-                <i class="fas fa-moon dark:hidden"></i>
-                <i class="fas fa-sun hidden dark:block text-yellow-400"></i>
-            </button>
+            <div class="flex items-center gap-2">
+                <button onclick="toggleDarkMode()" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center transition-transform active:scale-90">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block text-yellow-400"></i>
+                </button>
+            </div>
         </div>
-        <div class="max-w-7xl mx-auto px-4 flex gap-6">
-            <button onclick="switchTab('tools')" id="tab-tools" class="py-3 font-bold text-xs active-tab transition-all">DIGITAL TOOLS</button>
-            <button onclick="switchTab('services')" id="tab-services" class="py-3 font-bold text-xs text-slate-400 transition-all">SHOP SERVICES</button>
+        <!-- Tabs Section -->
+        <div class="max-w-7xl mx-auto px-4 flex gap-8">
+            <button onclick="switchTab('tools')" id="tab-tools" class="py-3 font-extrabold text-sm active-tab transition-all">AH TOOLKIT</button>
+            <button onclick="switchTab('services')" id="tab-services" class="py-3 font-extrabold text-sm text-slate-400 transition-all">PHYSICAL SHOP SERVICES</button>
         </div>
     </nav>
 
-    <main id="page-tools" class="max-w-7xl mx-auto px-4 py-6">
-        <div id="toolsGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
-            </div>
-    </main>
+    <!-- TOOLKIT PAGE (Formerly Premium Tools) -->
+    <div id="page-tools" class="max-w-7xl mx-auto px-4 py-8">
+        <div class="mb-10">
+            <h2 class="text-3xl font-black mb-2 tracking-tighter">Digital Toolkit</h2>
+            <p class="text-slate-500 text-sm font-medium">Powering Your Device With Premium Tools.</p>
+        </div>
+        <div id="toolsGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            <!-- Tools Injected via JavaScript -->
+        </div>
+    </div>
 
-    <main id="page-services" class="max-w-7xl mx-auto px-4 py-6 hidden">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="p-6 bg-white dark:bg-darkCard rounded-3xl border dark:border-slate-800 shadow-sm">
-                <i class="fas fa-id-card text-emerald-500 text-3xl mb-4"></i>
-                <h3 class="font-bold text-lg mb-2">NADRA E-Sahulat</h3>
-                <p class="text-xs text-slate-500 mb-4">Verification, Renewal, FRC, and more.</p>
-                <a href="https://wa.me/923150075526" class="inline-block bg-emerald-500 text-white px-4 py-2 rounded-lg text-xs font-bold">Contact Now</a>
+    <!-- SERVICES PAGE -->
+    <div id="page-services" class="max-w-7xl mx-auto px-4 py-8 hidden">
+        <div class="mb-10">
+            <h2 class="text-3xl font-black mb-2 tracking-tighter">AH Mobile Services</h2>
+            <p class="text-slate-500 text-sm font-medium">Reliable Solutions For Your Identity And Communication Needs.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Nadra Section -->
+            <div class="bg-white dark:bg-darkCard p-8 rounded-[35px] shadow-sm border dark:border-slate-800">
+                <div class="w-14 h-14 bg-emerald-100 dark:bg-emerald-900/20 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl mb-6">
+                    <i class="fas fa-id-card"></i>
+                </div>
+                <h3 class="text-xl font-extrabold mb-4">NADRA E-SAHULAT</h3>
+                <ul class="space-y-4 text-sm font-semibold text-slate-600 dark:text-slate-400">
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> 🪪 CNIC Verification</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> CNIC Lost/Reprint Service</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> CNIC Expired/Renew Service</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> CNIC Marital Status Update Service</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> CNIC Cancellation Service</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> FRC / Family Tree</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> Birth/Death Certificates</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> Marriage Certificates</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> 🫆 All Type Of Biometric Available</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> Vehcile Verification</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> 🫆 Vehicle Biometric</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> Vehcile Transfer</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> Vehcile Token Tax</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-amber-500"></i> 📷 E-Challan Check & Pay</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-emerald-500"></i> Punjab Zameen Farad (Personal Record)</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-amber-500"></i> 🪪 ARMS License Renew</li>
+                </ul>
             </div>
-            <div class="p-6 bg-white dark:bg-darkCard rounded-3xl border dark:border-slate-800 shadow-sm">
-                <i class="fas fa-tools text-blue-500 text-3xl mb-4"></i>
-                <h3 class="font-bold text-lg mb-2">Mobile Software</h3>
-                <p class="text-xs text-slate-500 mb-4">FRP Bypass, Software Update, Unlocking.</p>
-                <a href="https://wa.me/923150075526" class="inline-block bg-blue-500 text-white px-4 py-2 rounded-lg text-xs font-bold">Contact Now</a>
+
+            <!-- Mobile Repair Section -->
+            <div class="bg-white dark:bg-darkCard p-8 rounded-[35px] shadow-sm border dark:border-slate-800">
+                <div class="w-14 h-14 bg-blue-100 dark:bg-blue-900/20 text-blue-600 rounded-2xl flex items-center justify-center text-2xl mb-6">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h3 class="text-xl font-extrabold mb-4">MOBILE SOLUTIONS</h3>
+                <ul class="space-y-4 text-sm font-semibold text-slate-600 dark:text-slate-400">
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-blue-500"></i> FRP Bypass</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-blue-500"></i> Mobile Software</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-blue-500"></i> Handfree</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-blue-500"></i> Branded Charger</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-blue-500"></i> Airbuds</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-blue-500"></i> Screen Protect</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-blue-500"></i> Phone Covers</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-blue-500"></i> Tempered Glass</li>
+                </ul>
             </div>
-            <div class="p-6 bg-white dark:bg-darkCard rounded-3xl border dark:border-slate-800 shadow-sm">
-                <i class="fas fa-wallet text-amber-500 text-3xl mb-4"></i>
-                <h3 class="font-bold text-lg mb-2">Payments</h3>
-                <p class="text-xs text-slate-500 mb-4">Utility Bills, EasyPaisa, Cash-in/out.</p>
-                <a href="https://wa.me/923150075526" class="inline-block bg-amber-500 text-white px-4 py-2 rounded-lg text-xs font-bold">Contact Now</a>
+
+            <!-- Sim Services Section -->
+            <div class="bg-white dark:bg-darkCard p-8 rounded-[35px] shadow-sm border dark:border-slate-800">
+                <div class="w-14 h-14 bg-purple-100 dark:bg-purple-900/20 text-purple-600 rounded-2xl flex items-center justify-center text-2xl mb-6">
+                    <i class="fas fa-sim-card"></i>
+                </div>
+                <h3 class="text-xl font-extrabold mb-4">SIM SERVICES</h3>
+                <ul class="space-y-4 text-sm font-semibold text-slate-600 dark:text-slate-400">
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-purple-500"></i> New SIM</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-purple-500"></i> SIM Duplicate</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-purple-500"></i> SIM Upgrade</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-purple-500"></i> SIM Swap</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-purple-500"></i> SIM Block</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-purple-500"></i> PTA Device Approval</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-purple-500"></i> SIM Information</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-purple-500"></i> Device Verification</li>
+                </ul>
             </div>
         </div>
-    </main>
+    </div>
 
-    <div id="mainModal" class="fixed inset-0 z-[200] hidden bg-black/80 backdrop-blur-sm items-center justify-center p-4">
-        <div class="bg-white dark:bg-darkCard w-full max-w-sm rounded-[30px] p-8 text-center relative">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400"><i class="fas fa-times"></i></button>
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-darkCard border-t dark:border-slate-800 mt-20">
+        <div class="max-w-7xl mx-auto px-4 py-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h4 class="font-black mb-4 text-lg">CONTACT US</h4>
+                    <div class="space-y-3 text-sm text-slate-600 dark:text-slate-400">
+                        <p class="flex items-center gap-2"><i class="fas fa-phone text-brand"></i> +92 315 0075526</p>
+                        <p class="flex items-center gap-2"><i class="fas fa-location-dot text-brand"></i> Near Muslim School, College Road, Kot Addu</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-black mb-4 text-lg">WORKING HOURS</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">Open Daily: 9:00 AM - 9:00 PM</p>
+                </div>
+                <div>
+                    <h4 class="font-black mb-4 text-lg">FOLLOW US</h4>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-10 h-10 bg-brand text-white rounded-xl flex items-center justify-center hover:scale-110 transition-transform"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://wa.me/923150075526" class="w-10 h-10 bg-green-500 text-white rounded-xl flex items-center justify-center hover:scale-110 transition-transform"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center pt-8 border-t dark:border-slate-800">
+                <p class="text-sm text-slate-500 font-medium">© 2025 AH Mobile & Nadra E-Sahulat Centre. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Structure (THIS WAS MISSING!) -->
+    <div id="mainModal" class="modal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h3 id="modalTitle" class="text-xl font-black mb-6"></h3>
             <div id="modalBody"></div>
         </div>
     </div>
 
     <script>
-        // Array and functions must be available globally
-        const toolsList = [
+        // List restricted to requested 55+ tools
+        const tools = [
             { id: 1, name: "📖 QURAN PAK", icon: "fa-book-quran", color: "bg-emerald-500" },
             { id: 2, name: "🩺 DOCTOR AI", icon: "fa-user-md", color: "bg-rose-500" },
-            { id: 8, name: "🎬 NETFLIX PREM", icon: "fa-film", color: "bg-red-600" },
-            { id: 9, name: "▶️ YOUTUBE PREM", icon: "fa-play", color: "bg-red-500" },
+            { id: 8, name: "🎬 NETFLIX PREMIUM", icon: "fa-film", color: "bg-red-600" },
+            { id: 9, name: "▶️ YOUTUBE PREMIUM", icon: "fa-play", color: "bg-red-500" },
             { id: 10, name: "🎵 SPOTIFY APK", icon: "fa-spotify", color: "bg-green-500" },
+            { id: 11, name: "🎧 YT MUSIC PREMIUM", icon: "fa-music", color: "bg-red-400" },
+            { id: 13, name: "⬇️ SNAPTUBE PREMIUM", icon: "fa-download", color: "bg-yellow-500" },
+            { id: 14, name: "📥 VIDMATE PREMIUM", icon: "fa-circle-down", color: "bg-orange-500" },
+            { id: 15, name: "❌ TWITTER PREMIUM", icon: "fa-x-twitter", color: "bg-slate-900" },
+            { id: 19, name: "⚙️ APP MANAGER", icon: "fa-cog", color: "bg-blue-600" },
+            { id: 20, name: "🧩 MULTI CLONE", icon: "fa-layer-group", color: "bg-indigo-500" },
+            { id: 21, name: "🌐 THUNDER VPN", icon: "fa-bolt", color: "bg-yellow-400" },
+            { id: 22, name: "🔐 WRAP VPN", icon: "fa-shield", color: "bg-blue-500" },
+            { id: 23, name: "🛡️ SUPER VPN", icon: "fa-lock", color: "bg-cyan-500" },
             { id: 24, name: "✂️ CAPCUT PRO", icon: "fa-video", color: "bg-slate-800" },
-            { id: 103, name: "💸 JAZZCASH FAKE", icon: "fa-comment-dollar", color: "bg-amber-600" },
-            { id: 187, name: "💳 EASYPAISA BYP", icon: "fa-fingerprint", color: "bg-green-500" },
-            { id: 213, name: "🆔 FAKE CNIC", icon: "fa-id-badge", color: "bg-blue-900" }
+            { id: 25, name: "🎬 KINEMASTER", icon: "fa-clapperboard", color: "bg-orange-600" },
+            { id: 26, name: "🎨 PICSART PRO", icon: "fa-palette", color: "bg-purple-500" },
+            { id: 27, name: "▶️ PLAY IT PRO", icon: "fa-play-circle", color: "bg-blue-400" },
+            { id: 28, name: "📤 SHAREIT PRO", icon: "fa-share-nodes", color: "bg-blue-500" },
+            { id: 30, name: "🔍 ROOT CHECKER", icon: "fa-search", color: "bg-slate-600" },
+            { id: 31, name: "🎥 INSHOT", icon: "fa-camera-video", color: "bg-pink-500" },
+            { id: 33, name: "🌊 PIXALLOOP", icon: "fa-water", color: "bg-blue-300" },
+            { id: 34, name: "🅿️ PIXELLAB PRO", icon: "fa-p", color: "bg-blue-700" },
+            { id: 35, name: "🖼️ REMINI PRO", icon: "fa-image", color: "bg-teal-500" },
+            { id: 51, name: "🤖 TG BOT", icon: "fa-robot", color: "bg-sky-500" },
+            { id: 53, name: "👗 CLOTHES CHANGER", icon: "fa-shirt", color: "bg-violet-500" },
+            { id: 54, name: "🤖 OWN AI GPT", icon: "fa-brain", color: "bg-emerald-600" },
+            { id: 55, name: "⬇️ TIKTOK DOWNLOADER", icon: "fa-tiktok", color: "bg-black" },
+            { id: 57, name: "🎬 YT SHORTS", icon: "fa-clapperboard", color: "bg-red-600" },
+            { id: 58, name: "✍️ YT TITLE GENERATOR", icon: "fa-pen-nib", color: "bg-blue-500" },
+            { id: 59, name: "📲 WEB TO APK", icon: "fa-mobile-screen", color: "bg-indigo-600" },
+            { id: 60, name: "🎤 VOICE CHANGER", icon: "fa-microphone-lines", color: "bg-rose-600" },
+            { id: 62, name: "🔤 FONTS DOWNLADER", icon: "fa-font", color: "bg-slate-700" },
+            { id: 66, name: "📧 TEMP MAIL", icon: "fa-envelope", color: "bg-orange-400" },
+            { id: 67, name: "📱 IMEI CHECK", icon: "fa-barcode", color: "bg-slate-800" },
+            { id: 68, name: "ℹ️ DEVICE INFO", icon: "fa-info-circle", color: "bg-blue-500" },
+            { id: 70, name: "🚗 PUNJAB VEHICLE", icon: "fa-car", color: "bg-green-600" },
+            { id: 73, name: "🪪 DLMIS PUNJAB", icon: "fa-id-card", color: "bg-blue-800" },
+            { id: 76, name: "🌍 WORLD SIM", icon: "fa-sim-card", color: "bg-cyan-600" },
+            { id: 78, name: "💡 UTILITY BILLS CHECK", icon: "fa-file-invoice-dollar", color: "bg-amber-500" },
+            { id: 79, name: "📶 SPEED CHECK", icon: "fa-gauge-high", color: "bg-blue-600" },
+            { id: 80, name: "🎯 PREM ICONS", icon: "fa-icons", color: "bg-purple-600" },
+            { id: 82, name: "🖼️ BG REMOVER", icon: "fa-scissors", color: "bg-rose-500" },
+            { id: 103, name: "💸 JAZZCASH FAKE PAYMENT", icon: "fa-comment-dollar", color: "bg-amber-600" },
+            { id: 111, name: "💾 WA STATUS SAVER", icon: "fa-whatsapp", color: "bg-green-600" },
+            { id: 168, name: "🗺️ TRACE LOCATION", icon: "fa-map-location-dot", color: "bg-red-500" },
+            { id: 187, name: "💳 EASYPAISA BYPASS", icon: "fa-fingerprint", color: "bg-green-500" },
+            { id: 188, name: "💳 JAZZCASH BYPASS", icon: "fa-fingerprint", color: "bg-amber-600" },
+            { id: 210, name: "🌐 CLONE WEB", icon: "fa-copy", color: "bg-slate-800" },
+            { id: 213, name: "🆔 FAKE CNIC MAKER", icon: "fa-id-badge", color: "bg-blue-900" }
         ];
+
+        function switchTab(tab) {
+            const toolsPage = document.getElementById('page-tools');
+            const servicesPage = document.getElementById('page-services');
+            const tabT = document.getElementById('tab-tools');
+            const tabS = document.getElementById('tab-services');
+
+            if(tab === 'tools') {
+                toolsPage.classList.remove('hidden');
+                servicesPage.classList.add('hidden');
+                tabT.classList.add('active-tab');
+                tabT.classList.remove('text-slate-400');
+                tabS.classList.remove('active-tab');
+                tabS.classList.add('text-slate-400');
+            } else {
+                servicesPage.classList.remove('hidden');
+                toolsPage.classList.add('hidden');
+                tabS.classList.add('active-tab');
+                tabS.classList.remove('text-slate-400');
+                tabT.classList.remove('active-tab');
+                tabT.classList.add('text-slate-400');
+            }
+        }
 
         function renderTools() {
             const grid = document.getElementById('toolsGrid');
-            if(!grid) return;
-            grid.innerHTML = toolsList.map(t => `
-                <div onclick="openTool(${t.id})" class="tool-card bg-white dark:bg-darkCard p-4 rounded-2xl text-center border dark:border-slate-800 shadow-sm border-slate-100">
-                    <div class="${t.color} w-10 h-10 rounded-xl flex items-center justify-center text-white text-lg mx-auto mb-2">
+            grid.innerHTML = tools.map(t => `
+                <div onclick="openTool(${t.id})" class="tool-card bg-white dark:bg-darkCard p-6 rounded-[35px] text-center border dark:border-slate-800 shadow-sm cursor-pointer">
+                    <div class="${t.color} w-14 h-14 rounded-2xl flex items-center justify-center text-white text-2xl mx-auto mb-4 shadow-lg shadow-inherit/30">
                         <i class="fas ${t.icon}"></i>
                     </div>
-                    <h4 class="text-[9px] font-bold uppercase dark:text-white truncate">${t.name}</h4>
+                    <h4 class="text-[10px] font-black uppercase tracking-tight dark:text-white">${t.name}</h4>
                 </div>
             `).join('');
         }
 
         function openTool(id) {
-            const tool = toolsList.find(x => x.id === id);
+            const tool = tools.find(x => x.id === id);
             const modal = document.getElementById('mainModal');
+            document.getElementById('modalTitle').innerText = tool.name;
             document.getElementById('modalBody').innerHTML = `
-                <div class="${tool.color} w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl mx-auto mb-4">
+                <div class="${tool.color} w-24 h-24 rounded-[30px] flex items-center justify-center text-white text-4xl mx-auto mb-8 shadow-2xl shadow-inherit/40">
                     <i class="fas ${tool.icon}"></i>
                 </div>
-                <h3 class="text-xl font-black mb-1">${tool.name}</h3>
-                <p class="text-xs text-slate-500 mb-6 font-medium">Click below to get access via WhatsApp</p>
-                <a href="https://wa.me/923150075526" class="block w-full bg-brand text-white py-4 rounded-xl font-black text-sm">GET ACCESS NOW</a>
-            `;
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-
-        function closeModal() {
-            document.getElementById('mainModal').classList.add('hidden');
-        }
-
-        function switchTab(tab) {
-            const isTools = tab === 'tools';
-            document.getElementById('page-tools').classList.toggle('hidden', !isTools);
-            document.getElementById('page-services').classList.toggle('hidden', isTools);
-            
-            document.getElementById('tab-tools').classList.toggle('active-tab', isTools);
-            document.getElementById('tab-tools').classList.toggle('text-slate-400', !isTools);
-            
-            document.getElementById('tab-services').classList.toggle('active-tab', !isTools);
-            document.getElementById('tab-services').classList.toggle('text-slate-400', isTools);
-        }
-
-        function toggleDarkMode() {
-            document.documentElement.classList.toggle('dark');
-        }
-
-        // Run functions immediately and on DOM load
-        document.addEventListener('DOMContentLoaded', renderTools);
-        renderTools(); 
-    </script>
-</body>
-</html>
+                <h4 class="text-2xl font-black mb-2">${tool.name}</h4>
+                <p class="text-slate-500 dark:text-slate-400 mb-10 font-medium">Accessing AH Mobile & Nadra Centre's Secure Cloud For This Resource...</p>
+                <div class="space-y
