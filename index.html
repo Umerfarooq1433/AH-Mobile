@@ -28,10 +28,6 @@
         .dark .glass-nav { background: rgba(2, 6, 23, 0.85); }
         .tool-card { transition: all 0.2s ease-in-out; }
         .tool-card:hover { transform: translateY(-3px); border-color: #2563eb; }
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); align-items: center; justify-content: center; }
-        .modal-content { background-color: white; padding: 2rem; border-radius: 30px; max-width: 500px; width: 90%; text-align: center; animation: slideIn 0.3s ease; }
-        .dark .modal-content { background-color: #0f172a; }
-        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-darkBg text-slate-900 dark:text-slate-100">
@@ -118,66 +114,63 @@
                     <li class="flex items-center gap-3"><i class="fas fa-check text-blue-500"></i> Handfree</li>
                     <li class="flex items-center gap-3"><i class="fas fa-check text-blue-500"></i> Branded Charger</li>
                     <li class="flex items-center gap-3"><i class="fas fa-check text-blue-500"></i> Airbuds</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-blue-500"></i> Screen Protect</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-blue-500"></i> Phone Covers</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-blue-500"></i> Tempered Glass</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-blue-500"></i> Electronic Gadgets</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-blue-500"></i> New Sim Activation</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-blue-500"></i> Duplicate Sim Activation</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-blue-500"></i> PTA Mobile Registration</li>
                 </ul>
             </div>
 
-            <!-- Sim Services Section -->
+            <!-- Payments Section -->
             <div class="bg-white dark:bg-darkCard p-8 rounded-[35px] shadow-sm border dark:border-slate-800">
-                <div class="w-14 h-14 bg-purple-100 dark:bg-purple-900/20 text-purple-600 rounded-2xl flex items-center justify-center text-2xl mb-6">
-                    <i class="fas fa-sim-card"></i>
+                <div class="w-14 h-14 bg-amber-100 dark:bg-amber-900/20 text-amber-600 rounded-2xl flex items-center justify-center text-2xl mb-6">
+                    <i class="fas fa-wallet"></i>
                 </div>
-                <h3 class="text-xl font-extrabold mb-4">SIM SERVICES</h3>
+                <h3 class="text-xl font-extrabold mb-4">BILLING & CASH</h3>
                 <ul class="space-y-4 text-sm font-semibold text-slate-600 dark:text-slate-400">
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-purple-500"></i> New SIM</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-purple-500"></i> SIM Duplicate</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-purple-500"></i> SIM Upgrade</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-purple-500"></i> SIM Swap</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-purple-500"></i> SIM Block</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-purple-500"></i> PTA Device Approval</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-purple-500"></i> SIM Information</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-purple-500"></i> Device Verification</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-amber-500"></i> Electricity Bill Payments</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-amber-500"></i> Sui Gas Bill Payments</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-amber-500"></i> PTCL Bill Payments</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-amber-500"></i> Water Bill Payments</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-amber-500"></i> Loan Payments</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-amber-500"></i> Fauji Foundation School Fees</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-amber-500"></i> Virtual University Fees</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-amber-500"></i> Farad Fee Payments</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-amber-500"></i> All PSID Payments</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-amber-500"></i> All Type Of Government Payments</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-amber-500"></i> EasyPaisa / JazzCash</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-amber-500"></i> Bank Transfer</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-amber-500"></i> Game Credits (FreeFire/PUBG)</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-amber-500"></i> 🚘 M-Tag Recharge</li>
                 </ul>
+            </div>
+        </div>
+        
+        <!-- Call to Action -->
+        <div class="mt-12 bg-gradient-to-br from-brand to-blue-800 p-12 rounded-[50px] text-center text-white shadow-2xl">
+            <h3 class="text-3xl font-black mb-4">Professional Service At Your Doorstep</h3>
+            <p class="text-blue-100 mb-8 max-w-lg mx-auto font-medium">Humaray Centre Per Tashreef Layein Ya Kisi Bhi Maslay Ke Liye Nechy Diye Gaye Buttons Par Click Karke Rabta Karain.</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="https://wa.me/923150075526" class="bg-white text-brand px-10 py-4 rounded-2xl font-black flex items-center gap-2 hover:shadow-xl transition-all">
+                    <i class="fab fa-whatsapp text-xl"></i> WHATSAPP
+                </a>
+                <a href="tel:03150075526" class="bg-blue-700 text-white border border-blue-400/30 px-10 py-4 rounded-2xl font-black flex items-center gap-2 hover:bg-blue-600 transition-all">
+                    <i class="fas fa-phone"></i> CALL US
+                </a>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-white dark:bg-darkCard border-t dark:border-slate-800 mt-20">
-        <div class="max-w-7xl mx-auto px-4 py-10">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-                <div>
-                    <h4 class="font-black mb-4 text-lg">CONTACT US</h4>
-                    <div class="space-y-3 text-sm text-slate-600 dark:text-slate-400">
-                        <p class="flex items-center gap-2"><i class="fas fa-phone text-brand"></i> +92 315 0075526</p>
-                        <p class="flex items-center gap-2"><i class="fas fa-location-dot text-brand"></i> Near Muslim School, College Road, Kot Addu</p>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="font-black mb-4 text-lg">WORKING HOURS</h4>
-                    <p class="text-sm text-slate-600 dark:text-slate-400">Open Daily: 9:00 AM - 9:00 PM</p>
-                </div>
-                <div>
-                    <h4 class="font-black mb-4 text-lg">FOLLOW US</h4>
-                    <div class="flex gap-3">
-                        <a href="#" class="w-10 h-10 bg-brand text-white rounded-xl flex items-center justify-center hover:scale-110 transition-transform"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://wa.me/923150075526" class="w-10 h-10 bg-green-500 text-white rounded-xl flex items-center justify-center hover:scale-110 transition-transform"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
+    <!-- Unified Modal for Tools -->
+    <div id="mainModal" class="fixed inset-0 z-[200] hidden bg-black/70 backdrop-blur-md items-center justify-center p-4">
+        <div class="bg-white dark:bg-darkCard w-full max-w-xl rounded-[45px] overflow-hidden shadow-2xl flex flex-col max-h-[85vh]">
+            <div class="p-8 flex justify-between items-center border-b dark:border-slate-800">
+                <h3 id="modalTitle" class="font-black text-xl tracking-tighter">TOOL PREVIEW</h3>
+                <button onclick="closeModal()" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:text-red-500 transition-all">&times;</button>
             </div>
-            <div class="text-center pt-8 border-t dark:border-slate-800">
-                <p class="text-sm text-slate-500 font-medium">© 2025 AH Mobile & Nadra E-Sahulat Centre. All Rights Reserved.</p>
+            <div id="modalBody" class="p-10 text-center overflow-y-auto">
+                <!-- Tool content injected here -->
             </div>
-        </div>
-    </footer>
-
-    <!-- Modal Structure (THIS WAS MISSING!) -->
-    <div id="mainModal" class="modal" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <h3 id="modalTitle" class="text-xl font-black mb-6"></h3>
-            <div id="modalBody"></div>
         </div>
     </div>
 
@@ -279,6 +272,4 @@
                 <div class="${tool.color} w-24 h-24 rounded-[30px] flex items-center justify-center text-white text-4xl mx-auto mb-8 shadow-2xl shadow-inherit/40">
                     <i class="fas ${tool.icon}"></i>
                 </div>
-                <h4 class="text-2xl font-black mb-2">${tool.name}</h4>
-                <p class="text-slate-500 dark:text-slate-400 mb-10 font-medium">Accessing AH Mobile & Nadra Centre's Secure Cloud For This Resource...</p>
-                <div class="space-y
+                <h4 class="text-2xl font-black mb-
