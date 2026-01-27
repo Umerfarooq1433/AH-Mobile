@@ -570,4 +570,76 @@
             { name: "📧 TEMP MAIL", icon: "fa-envelope", color: "bg-orange" },
             { name: "📱 IMEI CHECK", icon: "fa-barcode", color: "bg-slate" },
             { name: "ℹ️ DEVICE INFO", icon: "fa-info-circle", color: "bg-blue" },
-            { name: "🚗 
+            { name: "🚗 PUNJAB VEHICLE", icon: "fa-car", color: "bg-green" },
+            { name: "🪪 DLMIS PUNJAB", icon: "fa-id-card", color: "bg-blue" },
+            { name: "🌍 WORLD SIM", icon: "fa-sim-card", color: "bg-cyan" },
+            { name: "💡 BILLS CHECK", icon: "fa-file-invoice-dollar", color: "bg-amber" },
+            { name: "📶 SPEED CHECK", icon: "fa-gauge-high", color: "bg-blue" },
+            { name: "🎯 PREM ICONS", icon: "fa-icons", color: "bg-purple" },
+            { name: "🖼️ BG REMOVER", icon: "fa-scissors", color: "bg-rose" },
+            { name: "💸 JAZZCASH FAKE", icon: "fa-comment-dollar", color: "bg-amber" },
+            { name: "💾 WA STATUS SAVER", icon: "fa-whatsapp", color: "bg-green" },
+            { name: "🗺️ TRACE LOCATION", icon: "fa-map-location-dot", color: "bg-red" },
+            { name: "💳 EASYPAISA BYPASS", icon: "fa-fingerprint", color: "bg-green" },
+            { name: "💳 JAZZCASH BYPASS", icon: "fa-fingerprint", color: "bg-amber" },
+            { name: "🌐 CLONE WEB", icon: "fa-copy", color: "bg-slate" },
+            { name: "🆔 FAKE CNIC", icon: "fa-id-badge", color: "bg-blue" }
+        ];
+
+        // Load tools on page load
+        function loadTools() {
+            var grid = document.getElementById('toolsGrid');
+            var html = '';
+            for (var i = 0; i < tools.length; i++) {
+                html += '<div class="tool-card" onclick="showModal(\'' + tools[i].name + '\', \'' + tools[i].icon + '\', \'' + tools[i].color + '\')">';
+                html += '<div class="tool-icon ' + tools[i].color + '">';
+                html += '<i class="fas ' + tools[i].icon + '"></i>';
+                html += '</div>';
+                html += '<h4>' + tools[i].name + '</h4>';
+                html += '</div>';
+            }
+            grid.innerHTML = html;
+        }
+
+        // Switch tabs
+        function switchTab(tab) {
+            var tabs = document.querySelectorAll('.tab-button');
+            var toolsPage = document.getElementById('toolsPage');
+            var servicesPage = document.getElementById('servicesPage');
+            
+            if (tab === 'tools') {
+                tabs[0].classList.add('active');
+                tabs[1].classList.remove('active');
+                toolsPage.classList.add('active');
+                servicesPage.classList.remove('active');
+            } else {
+                tabs[1].classList.add('active');
+                tabs[0].classList.remove('active');
+                servicesPage.classList.add('active');
+                toolsPage.classList.remove('active');
+            }
+        }
+
+        // Show modal
+        function showModal(name, icon, color) {
+            document.getElementById('modalTitle').innerText = name;
+            document.getElementById('modalIcon').innerHTML = '<i class="fas ' + icon + '"></i>';
+            document.getElementById('modalIcon').className = 'modal-icon ' + color;
+            document.getElementById('modal').classList.add('show');
+        }
+
+        // Hide modal
+        function hideModal() {
+            document.getElementById('modal').classList.remove('show');
+        }
+
+        // Load tools when page loads
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadTools);
+        } else {
+            loadTools();
+        }
+    </script>
+
+</body>
+</html>
