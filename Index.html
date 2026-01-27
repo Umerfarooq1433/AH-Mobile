@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MY81ZKKC1C"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-MY81ZKKC1C');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AH MOBILE & NADRA E-SAHULAT CENTRE</title>
+    
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3616/3616230.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        body { background: #0f172a; color: white; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+        .nastaleeq { font-family: 'Noto Nastaliq Urdu', serif; line-height: 2.2; direction: rtl; }
+        .tool-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s ease; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; }
+        .tool-card:hover { transform: translateY(-5px); background: rgba(0, 168, 89, 0.08); border-color: #00a859; }
+        .btn-action { background: #00a859; padding: 10px; border-radius: 12px; font-weight: bold; width: 100%; margin-top: 10px; transition: 0.2s; text-align: center; font-size: 14px; cursor: pointer; border: none; color: white; display: block; }
+        .btn-action:hover { background: #008f4b; }
+        input { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 10px; padding: 12px; width: 100%; outline: none; margin-bottom: 10px; }
+        #pdfModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 999; }
+        iframe { width: 100%; height: calc(100vh - 70px); border: none; background: white; }
+        .section-header { border-left: 4px solid #00a859; padding-left: 10px; margin: 30px 0 15px; font-weight: 600; color: #00a859; text-transform: uppercase; letter-spacing: 1px; }
+        .prayer-box { background: rgba(255,255,255,0.05); padding: 8px; border-radius: 10px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+        .prayer-time { color: #00a859; font-weight: bold; }
+        .status-badge { font-size: 9px; padding: 2px 8px; border-radius: 50px; background: #00a85933; color: #4ade80; border: 1px solid #4ade8044; }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+
+    <header class="text-center mb-10">
+        <h1 class="text-3xl md:text-5xl font-black tracking-tighter uppercase italic">AH MOBILE & NADRA E-SAHULAT</h1>
+        <p class="text-green-400 font-bold tracking-widest mt-2 uppercase">Multi-Utility Portal</p>
+    </header>
+
+    <div class="max-w-7xl mx-auto">
+        
+        <h2 class="section-header">Live Prayer Times <span id="loc-status" class="status-badge ml-2 italic">Detecting City...</span></h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+            <div class="tool-card border-yellow-500/20 lg:col-span-4 py-6">
+                <div class="grid grid-cols-3 md:grid-cols-6 gap-3 text-[11px]" id="prayer-list">
+                    <div class="prayer-box">Fajr<br><span class="prayer-time" id="fajr">--:--</span></div>
+                    <div class="prayer-box">Sunrise<br><span class="prayer-time" id="sunrise">--:--</span></div>
+                    <div class="prayer-box">Zohar<br><span class="prayer-time" id="dhuhr">--:--</span></div>
+                    <div class="prayer-box">Asr<br><span class="prayer-time" id="asr">--:--</span></div>
+                    <div class="prayer-box">Maghrib<br><span class="prayer-time" id="maghrib">--:--</span></div>
+                    <div class="prayer-box">Isha<br><span class="prayer-time" id="isha">--:--</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div class="tool-card bg-emerald-900/10 border-emerald-500/20 md:col-span-2">
+                <div class="flex items-center justify-between mb-4 text-emerald-400">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-quran text-2xl"></i>
+                        <h3 class="font-bold uppercase tracking-tighter">Ayat of the Day</h3>
+                    </div>
+                    <span id="surah-info" class="text-[10px] bg-emerald-500/20 px-3 py-1 rounded text-white italic">Loading...</span>
+                </div>
+                <p class="text-2xl md:text-3xl nastaleeq text-right min-h-[100px] mb-4" id="arbi-ayat">...</p>
+                <p class="text-sm italic opacity-90 border-t border-white/10 pt-4 text-emerald-100" id="translation-ayat">...</p>
+                <div class="mt-6 flex flex-col md:flex-row items-center gap-4">
+                    <audio id="ayat-audio" controls class="w-full h-8 opacity-70"></audio>
+                    <button onclick="fetchAyat();" class="btn-action md:w-48 mt-0 text-xs"><i class="fas fa-random mr-2"></i> Next Ayat</button>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <h3 class="font-bold text-blue-400 mb-4 uppercase text-xs tracking-widest text-center">Tasbeeh Counter</h3>
+                <div class="text-7xl font-bold my-4 text-center" id="count">0</div>
+                <div class="flex gap-2">
+                    <button onclick="countUp()" class="btn-action m-0 text-3xl py-4">+</button>
+                    <button onclick="resetCount()" class="bg-gray-700 p-4 rounded-xl px-6 flex items-center hover:bg-gray-700 transition"><i class="fas fa-sync-alt"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+            <div class="tool-card">
+                <h3 class="font-bold text-sm mb-3 text-green-400"><i class="fas fa-search mr-2"></i>SIM DB Tracker</h3>
+                <input type="number" id="mobileNumber" placeholder="03XXXXXXXXX">
+                <button onclick="fetchTrackerData();" class="btn-action">Track Information</button>
+                <div id="trackerResult" class="hidden mt-3 p-3 bg-black/40 rounded-lg text-[10px] text-green-300"></div>
+            </div>
+
+            <div class="tool-card">
+                <h3 class="font-bold text-sm mb-4 text-purple-400"><i class="fas fa-network-wired mr-2"></i>Network Diagnosis</h3>
+                <div class="space-y-3 text-[11px]">
+                    <div class="flex justify-between border-b border-white/5 pb-1"><span>Live IP:</span><span id="user-ip" class="text-blue-300 font-mono">Detecting...</span></div>
+                    <div class="flex justify-between border-b border-white/5 pb-1"><span>Provider:</span><span id="user-isp">...</span></div>
+                    <div class="flex justify-between"><span>Location:</span><span id="user-city" class="text-green-400">...</span></div>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <h3 class="font-bold text-sm mb-3 text-yellow-500"><i class="fas fa-bolt mr-2"></i>Bill Estimator</h3>
+                <input type="number" id="units" placeholder="Enter Units">
+                <button onclick="calcBill()" class="btn-action">Check Amount</button>
+                <p id="billResult" class="text-center font-bold text-green-400 mt-2 text-sm"></p>
+            </div>
+        </div>
+
+        <div class="tool-card bg-slate-900/50">
+            <h3 class="text-xs uppercase tracking-widest text-gray-400 mb-4">Official Portals</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <a href="https://mtmis.excise.punjab.gov.pk/" target="_blank" class="bg-white/5 p-3 rounded-lg text-[10px] text-center hover:bg-white/10 transition">Vehicle Info</a>
+                <a href="https://dlims.punjab.gov.pk/verify/" target="_blank" class="bg-white/5 p-3 rounded-lg text-[10px] text-center hover:bg-white/10 transition">License Verify</a>
+                <a href="https://onlineservices.dgip.gov.pk/" target="_blank" class="bg-white/5 p-3 rounded-lg text-[10px] text-center hover:bg-white/10 transition">Passport Track</a>
+                <button onclick="openPdf()" class="bg-green-600/10 p-3 rounded-lg text-[10px] text-center hover:bg-green-600/30 border border-green-500/20">Quran Reader</button>
+            </div>
+        </div>
+
+        <div class="mt-10 text-center">
+            <a href="https://wa.me/923150075526" class="inline-flex items-center gap-3 bg-green-600 px-8 py-4 rounded-full font-bold hover:bg-green-700 transition shadow-lg shadow-green-900/20">
+                <i class="fab fa-whatsapp text-2xl"></i> Contact Us
+            </a>
+            <p class="text-[10px] text-gray-500 mt-4 italic uppercase tracking-widest">Umer Farooq - Near Jamia Masjid Galla Mandi, Sangla Hill</p>
+        </div>
+    </div>
+
+    <div id="pdfModal">
+        <div class="p-4 flex justify-between items-center text-white bg-black">
+            <span class="text-xs font-bold uppercase tracking-widest">Digital Quran Reader</span>
+            <button onclick="closePdf()" class="bg-red-600 px-6 py-2 rounded-lg font-bold text-xs hover:bg-red-700">CLOSE</button>
+        </div>
+        <iframe id="pdfFrame" src=""></iframe>
+    </div>
+
+    <footer class="text-center mt-20 mb-10 text-[9px] text-gray-700 uppercase tracking-[5px]">
+        © 2026 AH MOBILE & NADRA E-SAHULAT CENTRE
+    </footer>
+
+    <script>
+        // --- 1. Dynamic Location & Prayer Times Logic ---
+        async function getDynamicPrayerTimes() {
+            const locStatus = document.getElementById('loc-status');
+            try {
+                // IP se location detect karna (ip-api.com reliable hai)
+                const ipRes = await fetch('https://ip-api.com/json/');
+                const locData = await ipRes.json();
+                
+                if(locData.status === "success") {
+                    const city = locData.city;
+                    const country = locData.country;
+                    locStatus.innerText = `Location: ${city}`;
+                    
+                    // Network Diagnosis update
+                    document.getElementById('user-ip').innerText = locData.query;
+                    document.getElementById('user-isp').innerText = locData.isp;
+                    document.getElementById('user-city').innerText = `${city}, ${locData.countryCode}`;
+
+                    // Prayer Times API (Aladhan)
+                    const prayerRes = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=1`);
+                    const pData = await prayerRes.json();
+                    const t = pData.data.timings;
+                    
+                    document.getElementById('fajr').innerText = t.Fajr;
+                    document.getElementById('sunrise').innerText = t.Sunrise;
+                    document.getElementById('dhuhr').innerText = t.Dhuhr;
+                    document.getElementById('asr').innerText = t.Asr;
+                    document.getElementById('maghrib').innerText = t.Maghrib;
+                    document.getElementById('isha').innerText = t.Isha;
+                }
+            } catch (e) {
+                locStatus.innerText = "Location Hidden";
+                console.log("Location Error");
+            }
+        }
+
+        // --- 2. Quran API ---
+        async function fetchAyat() {
+            try {
+                const random = Math.floor(Math.random() * 6236) + 1;
+                const res = await fetch(`https://api.alquran.cloud/v1/ayah/${random}/editions/quran-uthmani,ur.jalandhry,ar.alafasy`);
+                const d = await res.json();
+                document.getElementById('arbi-ayat').innerText = d.data[0].text;
+                document.getElementById('translation-ayat').innerText = d.data[1].text;
+                document.getElementById('surah-info').innerText = `${d.data[0].surah.englishName} (${d.data[0].numberInSurah})`;
+                document.getElementById('ayat-audio').src = d.data[2].audio;
+            } catch (e) { }
+        }
+
+        // --- 3. Utilities ---
+        async function fetchTrackerData() {
+            const num = document.getElementById('mobileNumber').value;
+            const resDiv = document.getElementById('trackerResult');
+            if(!num) return;
+            resDiv.classList.remove('hidden'); resDiv.innerText = "Searching Official Database...";
+            try {
+                const res = await fetch(`https://app-api.callerid.pk/api/api_sims/api.php?number=${num}`);
+                const data = await res.json();
+                if(data.status === "success") {
+                    resDiv.innerHTML = `NAME: ${data.name}<br>CNIC: ${data.cnic}<br>ADDR: ${data.address}`;
+                } else {
+                    resDiv.innerHTML = `<a href="https://app-api.callerid.pk/api/api_sims/api.php?number=${num}" target="_blank" class="underline font-bold">View Search Results</a>`;
+                }
+            } catch (e) {
+                resDiv.innerHTML = `<a href="https://app-api.callerid.pk/api/api_sims/api.php?number=${num}" target="_blank" class="underline">Open Portal</a>`;
+            }
+        }
+
+        function calcBill() { 
+            let u = document.getElementById('units').value; 
+            if(u) document.getElementById('billResult').innerText = "Rs. " + (u * 55).toLocaleString(); 
+        }
+
+        let counter = 0;
+        function countUp() { counter++; document.getElementById('count').innerText = counter; }
+        function resetCount() { counter = 0; document.getElementById('count').innerText = counter; }
+
+        function openPdf() {
+            const pdfUrl = "https://ia800203.us.archive.org/30/items/TheHolyQuran-ColorCodedTajweed-ArabicWithUrduTranslation/TheHolyQuran-ColorCodedTajweed-ArabicWithUrduTranslation.pdf";
+            document.getElementById('pdfFrame').src = `https://docs.google.com/viewer?url=${pdfUrl}&embedded=true`;
+            document.getElementById('pdfModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        function closePdf() { document.getElementById('pdfModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
+
+        // Initialize All
+        window.onload = () => { fetchAyat(); getDynamicPrayerTimes(); };
+    </script>
+</body>
+  </html>
